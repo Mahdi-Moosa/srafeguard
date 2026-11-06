@@ -1,12 +1,13 @@
 # SRAFEGUARD 0.1.0
 
-SRAFEGUARD audits recoverable human-reference-aligned sequence and genetic-information
-endpoints in nominally microbial short-read libraries. It is an **audit framework**,
-not a read-depletion tool. Hostile is an external depletion program. This release
-is a candidate for author review and has not been published.
+SRAFEGUARD quantifies recoverable human-reference-aligned sequence and
+genetic-information endpoints in nominally microbial short-read libraries. It
+reports conservative human evidence, population-marker recovery, reference-population
+affinity and clinically annotated alternate-allele observations.
 
-MIT, Copyright (c) 2026 Mahdi Moosa. No repository URL, ORCID or DOI is invented.
-A missing manuscript DOI is not a release blocker. See CITATION.cff.
+Version **0.1.0** is an **audit framework**, not a read-depletion tool. Hostile is
+an external depletion program; SRAFEGUARD can audit original and externally filtered
+libraries separately.
 
 ## What it measures
 
@@ -28,8 +29,8 @@ can measure genome-alignable signal in RNA reads, but are not splice-aware RNA s
 
 ## Installation
 
-Linux is the tested platform. Use an isolated environment and install from this
-candidate's own source files:
+Linux is the tested platform. Use the pinned Python 3.14 Conda environment and
+install from the repository root:
 
 ```bash
 conda env create -f environment.yml
@@ -45,11 +46,11 @@ in environment.yml. External programs must be on PATH: the frozen strict callers
 use minimap2/samtools/seqkit directly even where other modules accept tool overrides.
 Kraken and bacterial assembly adjudication are not part of this framework's workflow;
 unused helper functions in the frozen paired module are retained for source fidelity.
-The separately released WGS contamination pipeline has a different scope.
+The separate WGS contamination pipeline has a different scope.
 
-A new Conda prefix, wheel, source-distribution and independent Python installation
-are checked during release review; exact executed results are in the separate report.
-Do not infer that a synthetic test validates every real SRA architecture or resource.
+Installation from source, wheel and source distribution has been tested in isolated
+environments. See [validation](docs/validation.md) for test coverage and limits.
+Synthetic tests do not validate every real SRA architecture or reference resource.
 
 ## References and configuration
 
@@ -63,9 +64,9 @@ The small study-curated recurrent-hotspot BED is included as a reference-only
 exclusion mask: four intervals, no alleles, QNAMEs, accessions or person-level records.
 Its exact intervals are scientific method criteria, not an individual human profile.
 The included `python -m srafeguard.reference_prepare` builds the exact final
-marker table from checksum-verified source chromosomes; no large reference rebuild
-was repeated during packaging. External retrieval, versions and licensing are in
-[docs/references.md](docs/references.md).
+marker table from checksum-verified source chromosomes. Its full reference rebuild
+was not repeated during software validation. External retrieval, versions and licensing
+are in [reference preparation](docs/references.md).
 
 Copy `configs/example.yaml` to a user-owned local configuration. Set external paths;
 relative resource paths resolve against the YAML directory. Defaults and resource
@@ -107,7 +108,7 @@ from the newer primary WGS pipeline and is not silently harmonized.
 
 Use the local SRA filename stem as its sample label: the retained extractor expects
 matching fasterq output names. Arbitrary aliases are supported for FASTQ audits.
-Common FASTQ-name and resource caveats are listed in docs/limitations.md.
+Common FASTQ-name and resource caveats are listed in [limitations](docs/limitations.md).
 
 ## Single-library execution
 
@@ -148,7 +149,7 @@ Re-analysis reads saved effective configuration and original input paths, record
 parentage, and writes a new result directory. Original input files must remain
 available; retained BAM alone is not its input. `--min-mapq` and `--min-bq` change
 population/ClinVar observation QC, not the frozen strict-human caller. Explicit
-layout/platform provenance is forwarded in the public candidate.
+layout/platform overrides are forwarded to the new analysis.
 
 Batch resume skips completed analysis and cleanup metadata plus privacy_summary.tsv; it does **not**
 compare config/reference fingerprints. Use a new output root or reanalyze after
@@ -163,7 +164,7 @@ different directories. `--reject-source-sra` can apply the original biological
 READ_FILTER policy to externally filtered FASTQs; counts need not match the full
 original SRA because external depletion already removed reads. Hostile filtering
 and manuscript-specific matched comparison scripts are not included. There is no
-invented `compare` or `hostile` CLI command. Compare matching summary fields locally;
+`compare` or `hostile` CLI command. Compare matching summary fields locally;
 preserve layout and applicability, and do not interpret an unassessed endpoint as zero.
 
 ## Output and interpretation
@@ -195,7 +196,8 @@ Affinity uses log(AF) for ALT/log(1-AF) for REF, clipping to [.005,.995], with
 frequencies and MIXED loci are excluded; true AF0 is not missing. The bootstrap
 supports the full-data winner, not whichever population wins most replicates.
 It is a stability assessment of observed blocks, not ancestry or independent
-biological sampling. See docs/methods_audit.md for exact tie/observation semantics.
+biological sampling. See [methods](docs/methods_audit.md) for exact tie and
+observation semantics.
 
 Read-pair-supported P/LP ALT requires expected-locus remapping, retained ALT,
 qualifying MAPQ/proper-pair placement and bounded competing-alignment checks.
@@ -216,14 +218,20 @@ srafeguard audit --fastq1 /path/to/R1.fq --fastq2 /path/to/R2.fq \
   --sample LIBRARY_A --config configs/local.yaml --output workspace/retained --keep-evidence
 ```
 
-This is an explicit public-release policy change: the research `keep_evidence=False`
-removed reads but left detailed genetic tables. The separate cleanup/report layer
-changes retention and presentation, not extraction, likelihoods or clinical support
-classifiers. `runtime.keep_intermediates=True` is rejected; use the documented
-retention control. Per-locus exports exist only with opt-in retention. Legacy
-analytical files/variables containing `validated` remain compatible internally;
-ambiguous aliases are removed from the canonical public privacy summary and
-replaced by explicit pair-versus-single fields. See docs/privacy.md.
+Aggregate affinity and ClinVar reports are retained by default; per-locus and
+read-level evidence requires explicit opt-in. `--no-keep-evidence` explicitly
+requests cleanup, and an omitted flag uses the configured policy. Temporary scratch
+is removed even when final evidence retention is requested. Cleanup failures are
+reported separately from analytical completion; original inputs are protected.
+`runtime.keep_intermediates=True` is unsupported; use the retention flags instead.
+
+For audit and batch, explicit CLI retention flags override the supplied configuration.
+For re-analysis, precedence is: explicit retention flag, current `--set` values,
+current `--config` overlay, inherited effective configuration, then defaults.
+The effective configuration and metadata record the policy actually applied.
+Resume cannot restore evidence deleted previously; re-analysis requires the original
+inputs. See [reporting and retention](docs/reporting_compatibility.md) and
+[privacy](docs/privacy.md).
 
 No original cohort roster, selection seed, accession mapping or human profile is
 included. The fixed bootstrap seed is a resampling setting only, not a historical
@@ -241,25 +249,35 @@ references, reads, AF values and VCF annotation labels; uses actual minimap2,
 samtools and bcftools; exercises paired/single audit, retention, batch/resume and
 reanalyze. It is not an actual human allele profile or clinical validation.
 
-## Resources, license and citation
+## Reporting compatibility
 
-Reference preparation, coordinate/version identities, reference hashes and separate
-tool licenses are documented in docs/references.md. Large human indexes can require
-roughly10GB or more RAM; loading the full population panel and temporary BAM adds
-memory/disk needs dependent on library size. Start with small thread counts and
-separate user-owned scratch. No fixed throughput or universal RAM guarantee is made.
+The default `srafeguard-public-2` schema has 44 fields. Exact 35-field compatibility
+with historical manuscript analysis is available through `reporting.schema: legacy-1`;
+the public companion preserves explicit applicability and evaluation status. Legacy
+fields containing `validated` describe historical computational endpoints, not
+clinical validation. See [reporting compatibility](docs/reporting_compatibility.md)
+for configuration, nullable parsing, supporting-read/mate counters and missing-value
+semantics.
 
-MIT applies to original software, not to external executables, genomes, 1KGP or
-ClinVar datasets. Confirm the provider's applicable data terms. Cite SRAFEGUARD,
-Mahdi Moosa, version0.1.0 using CITATION.cff; the manuscript DOI may be added later.
-This candidate contains no Git metadata and must receive author approval before
-an initial public commit or upload.
+## Resource requirements and limitations
 
+Reference identities, checksums and external data terms are documented in
+[reference preparation](docs/references.md). Large human indexes can require roughly
+10 GB or more RAM; the full population panel and temporary BAMs add memory and disk
+requirements that depend on library size. Start with small thread counts and separate
+user-owned scratch. No fixed throughput or universal RAM guarantee is made.
 
-## Reporting and retention update
+Validation includes real-tool synthetic workflows and saved scientific-output
+regression checks. It does not constitute complete historical cohort reprocessing,
+full real-SRA integration or clinical validation. See [validation](docs/validation.md)
+and [limitations](docs/limitations.md). Abrupt process termination or power loss can
+prevent cleanup; inspect private workspaces before reuse.
 
-Default `srafeguard-public-2` retains local aggregate affinity and ClinVar reports while deleting enumerated sensitive details. Exact 35-field manuscript compatibility is available through `reporting.schema: legacy-1`; paired/single applicability remains explicit in the public companion. See [reporting and retention compatibility](docs/reporting_compatibility.md) for flags, nullable parsing, resume limitations and historical semantics.
+## License and citation
 
-## Technical-failure and retention gates
+Original SRAFEGUARD code is licensed under the [MIT License](LICENSE),
+Copyright (c) 2026 Mahdi Moosa. External tools, human reference genomes, 1KGP and
+ClinVar data retain their own licenses and provider terms; see
+[references](docs/references.md).
 
-The corrected release passes 77 tests, including a real samtools sort failure with partial output. Owned temporary BAMs/sort spills and input/mapping/clinical scratch are registered before sensitive writes; cleanup failures are explicit. Aggregate reports are preserved. All audit/batch/reanalyze retention flags are tri-state: --keep-evidence, --no-keep-evidence, or omitted. Reanalyze additionally accepts --config as a current overlay. See docs/reporting_compatibility.md for exact precedence and inheritance; the effective config/metadata record the policy actually applied.
+Please cite SRAFEGUARD, its author and version using [CITATION.cff](CITATION.cff).
