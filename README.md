@@ -57,7 +57,7 @@ Synthetic tests do not validate every real SRA architecture or reference resourc
 Large references are external, never installed by pip or bundled. Prepare:
 
 - CHM13v2.0 analysis-set FASTA with masked Y PARs and rCRS, plus an `-x sr` index.
-- The **complete five-superpopulation-ascertained** CHM13 1KGP marker table.
+- The CHM13-coordinate 1000 Genomes Project (1KGP) population-marker reference, covering all five superpopulations (AFR, AMR, EAS, EUR and SAS).
 - The frozen CHM13-coordinate ClinVar20220313 VCF and its tabix index.
 
 The small study-curated recurrent-hotspot BED is included as a reference-only
