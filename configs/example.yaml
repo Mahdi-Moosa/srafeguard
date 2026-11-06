@@ -1,0 +1,10 @@
+resources:
+  human_reference: ../external/chm13v2.0_maskedY_rCRS.fa
+  human_minimap2_index: ../external/chm13v2.0_maskedY_rCRS.sr.mmi
+  population_markers: ../external/chm13_1kgp_five_population_delta010.tsv.gz
+  clinvar_vcf: ../external/chm13v2.0_ClinVar20220313.vcf.gz
+  clinvar_vcf_index: ../external/chm13v2.0_ClinVar20220313.vcf.gz.tbi
+runtime:
+  temp_dir: ../workspace/tmp
+outputs:
+  keep_evidence: false

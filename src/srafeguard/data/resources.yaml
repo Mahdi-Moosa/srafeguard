@@ -1,0 +1,35 @@
+resources:
+  human_reference:
+    description: T2T-CHM13v2.0-based masked-Y + rCRS human reference
+    type: derived
+    config_key: resources.human_reference
+    required: true
+  human_minimap2_index:
+    description: minimap2 short-read index for the configured human reference
+    type: buildable
+    config_key: resources.human_minimap2_index
+    required: true
+    build_tool: minimap2
+  population_markers:
+    description: CHM13-coordinate 1000 Genomes superpopulation marker resource
+    type: derived
+    config_key: resources.population_markers
+    required: true
+  clinvar_vcf:
+    description: CHM13-coordinate ClinVar snapshot used in WGS_CONTA_2026
+    type: downloadable
+    config_key: resources.clinvar_vcf
+    required: true
+    version: '20220313'
+    url: https://s3-us-west-2.amazonaws.com/human-pangenomics/T2T/CHM13/assemblies/annotation/liftover/chm13v2.0_ClinVar20220313.vcf.gz
+  clinvar_vcf_index:
+    description: Tabix index for ClinVar VCF
+    type: buildable
+    config_key: resources.clinvar_vcf_index
+    required: true
+    build_tool: bcftools
+  hotspot_exclusion_mask:
+    description: Extreme recurrent human-mapping hotspot exclusion mask
+    type: bundled
+    path: data/extreme_hotspot_exclusion_mask.bed
+    required: true

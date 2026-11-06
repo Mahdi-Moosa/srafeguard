@@ -1,0 +1,96 @@
+{
+  "upstream_release": "T2T CHM13v2.0 1KGP unrelated_samples_2504 allele_freq",
+  "upstream_base": "https://s3-us-west-2.amazonaws.com/human-pangenomics/T2T/CHM13/assemblies/variants/1000_Genomes_Project/chm13v2.0/unrelated_samples_2504/allele_freq/",
+  "resource_sha256": "6e5655a095f1b071915e5c5f527a4a698e96dcf08a6cd58cba141f7a7ecdc112",
+  "original_control": "Complete four-population reconstruction previously matched frozen original exactly; retained approved inputs and producer reused here.",
+  "chromosomes": [
+    {
+      "file": "1KGP.CHM13v2.0.chr1.recalibrated.snp_indel.pass.withafinfo.vcf.gz",
+      "sha256": "619b7979bbecdd81b4023e9ca04bc198b532f3d66f795aa4f36a50cc3c3d959c"
+    },
+    {
+      "file": "1KGP.CHM13v2.0.chr10.recalibrated.snp_indel.pass.withafinfo.vcf.gz",
+      "sha256": "04ba090d8860b21215a202df5365f3a3c83639684d64e454a9de8931d3345b9c"
+    },
+    {
+      "file": "1KGP.CHM13v2.0.chr11.recalibrated.snp_indel.pass.withafinfo.vcf.gz",
+      "sha256": "6c5a0fb197fe487c26e6a751d2f757fa01ffd5152faaf4a1ce0b98a9e83e29eb"
+    },
+    {
+      "file": "1KGP.CHM13v2.0.chr12.recalibrated.snp_indel.pass.withafinfo.vcf.gz",
+      "sha256": "a165d53fe348b2c366466f38cdde0fe60644916418377fae90e98f57497207ab"
+    },
+    {
+      "file": "1KGP.CHM13v2.0.chr13.recalibrated.snp_indel.pass.withafinfo.vcf.gz",
+      "sha256": "67f408739e06c80759549e30160e44d7f392d243723cd15aec9bae8999ac2d25"
+    },
+    {
+      "file": "1KGP.CHM13v2.0.chr14.recalibrated.snp_indel.pass.withafinfo.vcf.gz",
+      "sha256": "4d4a38e628787a143040f22566df033a5d997ac8c3832d625d628c86659db1ad"
+    },
+    {
+      "file": "1KGP.CHM13v2.0.chr15.recalibrated.snp_indel.pass.withafinfo.vcf.gz",
+      "sha256": "7bce035ffc71e0a5ee7e7491e5cb24b4623a55e8fa87ac2bda25a977091f6e00"
+    },
+    {
+      "file": "1KGP.CHM13v2.0.chr16.recalibrated.snp_indel.pass.withafinfo.vcf.gz",
+      "sha256": "bb9df29e76cb776d5aaeefbe5bc3e2aa25a67b1cc29793183971981847d508cb"
+    },
+    {
+      "file": "1KGP.CHM13v2.0.chr17.recalibrated.snp_indel.pass.withafinfo.vcf.gz",
+      "sha256": "b4825422f9916a4a1fbee6a6c004d88cee1cafa3576cadd9b9392d868a322302"
+    },
+    {
+      "file": "1KGP.CHM13v2.0.chr18.recalibrated.snp_indel.pass.withafinfo.vcf.gz",
+      "sha256": "3621c7f053e17942cc130fc992a74fd864428821c0bb77e5e37cdd66334d751f"
+    },
+    {
+      "file": "1KGP.CHM13v2.0.chr19.recalibrated.snp_indel.pass.withafinfo.vcf.gz",
+      "sha256": "2e6be8c7b05ba1ac8de781e7a3d16c176839c1c3e215f755898bd645b35eae1d"
+    },
+    {
+      "file": "1KGP.CHM13v2.0.chr2.recalibrated.snp_indel.pass.withafinfo.vcf.gz",
+      "sha256": "58f5670efaddbb69f4ef3c76de445abce50e4a80a5c39725c25c2dbb3683d463"
+    },
+    {
+      "file": "1KGP.CHM13v2.0.chr20.recalibrated.snp_indel.pass.withafinfo.vcf.gz",
+      "sha256": "381453af1d1d4152dccb6271a7b2a5e107e0727a1f7c0cc53d01af55bb0ec5f3"
+    },
+    {
+      "file": "1KGP.CHM13v2.0.chr21.recalibrated.snp_indel.pass.withafinfo.vcf.gz",
+      "sha256": "40b6ee47e226972b155049910d97cac45aee5dcb82c8f2ba2f8b0cbbc83be73a"
+    },
+    {
+      "file": "1KGP.CHM13v2.0.chr22.recalibrated.snp_indel.pass.withafinfo.vcf.gz",
+      "sha256": "b69ff4fdae690c8fcd06054d33e9e6cc083e1a4b521b7418692200c0e3dad6ad"
+    },
+    {
+      "file": "1KGP.CHM13v2.0.chr3.recalibrated.snp_indel.pass.withafinfo.vcf.gz",
+      "sha256": "d3bfc9d2f2ece4acd1e115fb47de8a98a80168950d40157780e99bd744a70919"
+    },
+    {
+      "file": "1KGP.CHM13v2.0.chr4.recalibrated.snp_indel.pass.withafinfo.vcf.gz",
+      "sha256": "d72a5aea6ce18624952d1fb4f5589c1cedf729adb6424234095595ca2d8cc03a"
+    },
+    {
+      "file": "1KGP.CHM13v2.0.chr5.recalibrated.snp_indel.pass.withafinfo.vcf.gz",
+      "sha256": "5907ce0da8d027bf1af8d715427c30e945c78c85601bec6241effca30846bbfd"
+    },
+    {
+      "file": "1KGP.CHM13v2.0.chr6.recalibrated.snp_indel.pass.withafinfo.vcf.gz",
+      "sha256": "363ec9688e5d7cbc7fa4055d92b755b5790d5c6925daa4762fb8a64e69e1a640"
+    },
+    {
+      "file": "1KGP.CHM13v2.0.chr7.recalibrated.snp_indel.pass.withafinfo.vcf.gz",
+      "sha256": "9d23c3c7b37f2a5279d212d9f01095fb769be511d9fd1b55680f2f2204d46f4e"
+    },
+    {
+      "file": "1KGP.CHM13v2.0.chr8.recalibrated.snp_indel.pass.withafinfo.vcf.gz",
+      "sha256": "4511aa301f315770b8a88af9abf1dbcc70cf1354fa2056e22526b870e515d3e1"
+    },
+    {
+      "file": "1KGP.CHM13v2.0.chr9.recalibrated.snp_indel.pass.withafinfo.vcf.gz",
+      "sha256": "bf4f8557fc295ee2461e92a9da5f6cae484126923aeec65afcec8db17ff82739"
+    }
+  ]
+}

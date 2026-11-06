@@ -1,0 +1,155 @@
+profile:
+  name: SRAFEGUARD_FINAL_FIVE_POPULATION
+  version: '2026-11-01'
+  mark_custom_if_modified: true
+resources:
+  human_reference: null
+  human_minimap2_index: null
+  population_markers: null
+  clinvar_vcf: null
+  clinvar_vcf_index: null
+  hotspot_exclusion_bed: '@bundled_mask'
+tools:
+  minimap2: minimap2
+  samtools: samtools
+  bcftools: bcftools
+  seqkit: seqkit
+  fasterq_dump: fasterq-dump
+  vdb_dump: vdb-dump
+  vdb_validate: vdb-validate
+input:
+  infer_sample_name: true
+  sra:
+    split_files: true
+    fasterq_threads: 12
+  assay: genomic
+  platform: auto
+  layout: auto
+strict_human:
+  mapper_preset: sr
+  min_mapq: 30
+  min_identity: 0.98
+  min_query_coverage: 0.8
+  require_proper_pair: true
+  require_both_mates: true
+  primary_only: true
+  deduplicate_physical_fragments: true
+population:
+  enabled: true
+  min_pairwise_af_delta: 0.3
+  af_floor: 0.005
+  populations:
+  - AFR
+  - EUR
+  - SAS
+  - EAS
+  - AMR
+  min_mapq: 30
+  min_bq: 30
+  block_size_bp: 1000000
+  bootstraps: 1000
+  seed: 20260902
+  informative_min_sites: 20
+  informative_min_bootstrap: 0.9
+  extraction_mode: original_alignment
+clinvar:
+  enabled: true
+  snv_only: true
+  biallelic_only: true
+  min_mapq: 30
+  min_base_quality: 30
+  apply_hotspot_exclusion_mask: true
+  report_all_alt_observations: true
+  report_pathogenic_likely_pathogenic: true
+  validate_plp_candidates: true
+  min_bq: 30
+  biallelic_snv_only: true
+  chromosome_scope: all
+  validation:
+    enabled: true
+    threads: 2
+    secondary_n: 50
+    secondary_p: 0.5
+    min_remap_mapq: 30
+    distinct_locus_window_bp: 500
+    min_passing_mates: 1
+runtime:
+  threads: 2
+  mapper_threads: 2
+  sort_threads: 1
+  temp_dir: null
+  keep_intermediates: false
+output:
+  write_tsv: true
+  write_json: true
+  write_resolved_config: true
+platforms:
+  illumina:
+    enabled: true
+    read_type: short
+    evidence_profile: short_read
+    validation_status: validated_current
+  bgi:
+    enabled: true
+    read_type: short
+    evidence_profile: short_read
+    validation_status: study_validated_pending_package_concordance
+  iontorrent:
+    enabled: true
+    read_type: short
+    evidence_profile: iontorrent
+    validation_status: study_validated_pending_package_concordance
+  nanopore:
+    enabled: false
+    read_type: long
+    evidence_profile: nanopore
+    validation_status: not_yet_validated
+  pacbio:
+    enabled: false
+    read_type: long
+    evidence_profile: pacbio
+    validation_status: not_yet_validated
+assays:
+  genomic:
+    enabled: true
+    splice_aware: false
+  transcriptomic:
+    enabled: false
+    splice_aware: true
+    validation_status: not_yet_validated
+human_evidence_profiles:
+  short_read:
+    min_mapq: 30
+    min_identity: 0.98
+    min_query_coverage: 0.8
+    require_primary: true
+  iontorrent:
+    min_mapq: 30
+    min_identity: 0.98
+    min_query_coverage: 0.8
+    require_primary: true
+    note: Initial values mirror study settings; retain frozen-pipeline concordance
+      testing.
+  nanopore:
+    validated: false
+    note: Thresholds intentionally unset until long-read validation.
+  pacbio:
+    validated: false
+    note: Thresholds intentionally unset until long-read validation.
+  transcriptomic_short_read:
+    validated: false
+    splice_aware: true
+    note: Reserved for future RNA-seq implementation.
+evidence:
+  retain_strict_human_bam: true
+  canonical_mapping: single_original_human_alignment
+outputs:
+  keep_evidence: false
+release:
+  reference_profile: FINAL_FIVE_POPULATION
+  report_schema: srafeguard-public-1
+
+# Legacy output is explicitly requested; no scientific calculations change.
+reporting:
+  schema: public-2
+  legacy_export: false

@@ -1,0 +1,29 @@
+[build-system]
+requires = ["setuptools>=77"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "srafeguard"
+version = "0.1.0"
+description = "Audit recoverable human-sequence and genetic-information endpoints in microbial short-read data"
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = ["numpy>=2.4,<2.5", "pandas>=3.0,<3.1", "PyYAML>=6.0,<7"]
+license = "MIT"
+license-files = ["LICENSE"]
+authors = [{name = "Mahdi Moosa"}]
+
+[project.optional-dependencies]
+test = ["pytest>=9,<10"]
+
+[project.scripts]
+srafeguard = "srafeguard.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
+srafeguard = ["data/*.yaml", "data/*.bed", "data/*.json"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

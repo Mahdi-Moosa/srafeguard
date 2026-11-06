@@ -1,0 +1,10 @@
+cff-version: 1.2.0
+message: "Please cite this software when using it in research."
+title: SRAFEGUARD
+type: software
+version: 0.1.0
+license: MIT
+authors:
+  - family-names: Moosa
+    given-names: Mahdi
+abstract: "Computational audit of human-sequence and genetic-information endpoints in nominally microbial short-read sequencing data."
